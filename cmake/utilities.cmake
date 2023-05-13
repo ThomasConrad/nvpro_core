@@ -118,6 +118,36 @@ function(download_files)
 endfunction()
 
 #------------------------------------------------------------------------------------
+# Downloads the file located at the specified URL to the local path specified by PATH.
+# If the download fails for any reason, an error message will be printed and the function will exit.
+#
+# Arguments:
+#  URL  : the URL of the file to download
+#  PATH : the local filename to save the downloaded file to
+#
+# Example usage:
+# download_link("https://example.com/file.txt" file.txt")
+# This will download the file located at "https://example.com/file.txt" and save it to the path "downloaded_resources/file.txt".
+function(download_link url filename)
+  if(NOT filename)
+    set(filename "downloaded_file")
+  endif()
+  set(DOWNLOAD_FILES_TARGET_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+  set(download_path "${DOWNLOAD_TARGET_DIR}/${filename}")
+  if(NOT EXISTS ${download_path})
+    message(STATUS "Downloading ${url} to ${download_path}")
+    file(DOWNLOAD ${url} ${download_path} STATUS status)
+    list(GET status 0 error_code)
+    if(error_code)
+      list(GET status 1 error_message)
+      message(FATAL_ERROR "Failed to download ${url}: ${error_message}")
+    endif()
+  else()
+    message(STATUS "Skipping download of ${url}: file already exists at ${download_path}")
+  endif()
+endfunction()
+
+#------------------------------------------------------------------------------------
 # Find dependencies for GLSL files (#include ...)
 # Call 'glslc -M' to find all dependencies of the file and return the list
 # in GLSL_DEPENDENCY
