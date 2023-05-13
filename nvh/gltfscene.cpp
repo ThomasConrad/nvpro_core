@@ -64,6 +64,13 @@ void GltfScene::importMaterials(const tinygltf::Model& tmodel)
     gmat.metallicRoughnessTexture = tpbr.metallicRoughnessTexture.index;
     gmat.roughnessFactor          = static_cast<float>(tpbr.roughnessFactor);
 
+    // KHR_materials_emissive_strength
+    if(tmat.extensions.find(KHR_MATERIALS_EMISSIVE_STRENGTH_EXTENSION_NAME) != tmat.extensions.end())
+    {
+      const auto& ext = tmat.extensions.find(KHR_MATERIALS_EMISSIVE_STRENGTH_EXTENSION_NAME)->second;
+      getFloat(ext, "emissiveStrength", gmat.emissiveStrength.emissiveStrength);
+    }
+
     // KHR_materials_pbrSpecularGlossiness
     if(tmat.extensions.find(KHR_MATERIALS_PBRSPECULARGLOSSINESS_EXTENSION_NAME) != tmat.extensions.end())
     {
@@ -891,6 +898,7 @@ void GltfScene::checkRequiredExtensions(const tinygltf::Model& tmodel)
       KHR_LIGHTS_PUNCTUAL_EXTENSION_NAME,
       KHR_TEXTURE_TRANSFORM_EXTENSION_NAME,
       KHR_MATERIALS_PBRSPECULARGLOSSINESS_EXTENSION_NAME,
+      KHR_MATERIALS_EMISSIVE_STRENGTH_EXTENSION_NAME,
       KHR_MATERIALS_SPECULAR_EXTENSION_NAME,
       KHR_MATERIALS_UNLIT_EXTENSION_NAME,
       KHR_MATERIALS_ANISOTROPY_EXTENSION_NAME,

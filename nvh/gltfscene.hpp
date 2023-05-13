@@ -84,6 +84,13 @@ struct KHR_materials_specular
   int           specularColorTexture{-1};
 };
 
+// https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_emissive_strength/README.md
+#define KHR_MATERIALS_EMISSIVE_STRENGTH_EXTENSION_NAME "KHR_materials_emissive_strength"
+struct KHR_materials_emissive_strength
+{
+  float emissiveStrength{1.f};
+};
+
 // https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_transform
 #define KHR_TEXTURE_TRANSFORM_EXTENSION_NAME "KHR_texture_transform"
 struct KHR_texture_transform
@@ -201,6 +208,7 @@ struct GltfMaterial
 
   // Extensions
   KHR_materials_pbrSpecularGlossiness specularGlossiness;
+  KHR_materials_emissive_strength     emissiveStrength;
   KHR_materials_specular              specular;
   KHR_texture_transform               textureTransform;
   KHR_materials_clearcoat             clearcoat;
