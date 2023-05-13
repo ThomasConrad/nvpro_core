@@ -997,8 +997,8 @@ macro(_process_shared_cmake_code)
   
   set(COMMON_SOURCE_FILES)
   LIST(APPEND COMMON_SOURCE_FILES
-      ${BASE_DIRECTORY}/nvpro_core/nvp/resources.h
-      ${BASE_DIRECTORY}/nvpro_core/nvp/resources.rc
+      #${BASE_DIRECTORY}/nvpro_core/nvp/resources.h
+      #${BASE_DIRECTORY}/nvpro_core/nvp/resources.rc
       # Add this cpp file into the individual projects such that each one gets a unique g_ProjectName definition
       # This will allow to move more nvpro_core code relying on PROJECT_NAME into .cpp files.
       ${BASE_DIRECTORY}/nvpro_core/nvp/perproject_globals.cpp
